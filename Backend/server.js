@@ -3,6 +3,11 @@ import data from "./data.js";
 
 const app = express();
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
 app.get("/api/products", (req, res) => {
     res.send(data.products);
 })
