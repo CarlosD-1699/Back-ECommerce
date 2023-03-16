@@ -1,8 +1,8 @@
 const data = {
     products:[
         {
-            _id: '1',
-            name: 'Nike Slim Shirt',
+            //_id: '1',
+            name: 'Nike Slim Shirt1',
             slug: 'nike-slim-shirt1',
             category: 'Shirts',
             image: '/images/p2.png',
@@ -14,8 +14,8 @@ const data = {
             description: 'sample product',
         },
         {
-            _id: '2',
-            name: 'Nike Slim Shirt',
+            //_id: '2',
+            name: 'Nike Slim Shirt2',
             slug: 'nike-slim-shirt2',
             category: 'Shirts',
             image: '/images/p1.jpg',
@@ -27,8 +27,8 @@ const data = {
             description: 'sample product',
         },
         {
-            _id: '3',
-            name: 'Nike Slim Shirt',
+            //_id: '3',
+            name: 'Nike Slim Shirt3',
             slug: 'nike-slim-shirt3',
             category: 'Shirts',
             image: '/images/p2.png',
