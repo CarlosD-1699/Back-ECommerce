@@ -4,12 +4,15 @@ import axios from "axios";
 import Transaction from "../models/Transaction/Transaction.js";
 import Order from "../models/Order/orderModel.js";
 import expressAsyncHandler from "express-async-handler";
+import data from "../data.js";
 
 const payuRouter = express.Router();
 
 const API_KEY = process.env.PAYU_API_KEY;
 const MERCHANT_ID = process.env.PAYU_MERCHANT_ID;
 const ACCOUNT_ID = process.env.PAYU_ACCOUNT_ID;
+const PUBLIC_KEY = process.env.PAYU_PUBLIC_KEY;
+const API_LOGIN = process.env.PAYU_API_LOGIN;
 const CURRENCY = process.env.PAYU_CURRENCY;
 
 //const orderId = req.params.orderId;
@@ -18,10 +21,16 @@ payuRouter.post(
   "/payment_gateway/payumoney",
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
+    if (!order) {
+      res.status(404).send({ message: 'No se encontró la orden' });
+      return;
+    }
 
     const requestBody = {
       merchantId: MERCHANT_ID,
       accountId: ACCOUNT_ID,
+      publicKey: PUBLIC_KEY,
+      apiLogin: API_LOGIN,
       description: "Pago en línea",
       referenceCode: order.id,
       amount: req.body.amount,
@@ -49,7 +58,7 @@ payuRouter.post(
 
     // Enviar solicitud de redireccionamiento a PayU
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         process.env.PAYU_REDIRECT_URL,
         requestBody,
         {
@@ -62,10 +71,10 @@ payuRouter.post(
 
       // Redirigir al usuario a la página de pago de PayU
       console.log(response.data);
-      res.redirect(response.data);
+      return res.redirect(response.data);
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error al procesar el pago");
+      return res.status(500).send("Error al procesar el pago");
     }
   })
 );
@@ -118,12 +127,7 @@ payuRouter.post("/payu/confirmation", async (req, res) => {
   }
 
   res.send("OK");
-  res.redirect(`http://127.0.0.1:5173/order/${order._id}`);
-});
-
-payuRouter.post("/payu/test", async (req, res) => {
-  console.log("Ok")
-  res.send("OK");
+  return res.redirect(`http://127.0.0.1:5173/order/${order._id}`);
 });
 
 export default payuRouter;

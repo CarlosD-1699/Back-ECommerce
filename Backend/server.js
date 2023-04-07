@@ -34,12 +34,13 @@ app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/payu", payuRouter);
+app.use("/api/pay", payuRouter);
 
-//app.use(cors());
+app.use(cors());
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ message: err.message });
+  console.error(err.stack);
+  res.status(500).send('Error interno del servidor: ' + err.message);
 });
 
 const port = process.env.PORT || 5000;
