@@ -30,7 +30,7 @@ app.get('/api/keys/paypal', (req, res) => {
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
@@ -50,5 +50,5 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-  console.log(`serve at http://localhost:${port}`);
+  console.log(`serve at https://back-ecommerce-wu5w.onrender.com:${port}`);
 });
