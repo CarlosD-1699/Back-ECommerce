@@ -30,7 +30,9 @@ app.get('/api/keys/paypal', (req, res) => {
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
+  res.header("Access-Control-Allow-Credentials: true");
+  res.header("Access-Control-Allow-Methods: POST, PUT, PATCH, GET, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, authorization");
   next();
 });
 
