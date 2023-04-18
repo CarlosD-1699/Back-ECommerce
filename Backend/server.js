@@ -7,7 +7,7 @@ import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import payuRouter from "./routes/payuGatewayRoutes.js";
-import cors from "cors"
+import cors from "cors";
 
 dotenv.config();
 
@@ -22,17 +22,23 @@ mongoose
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/keys/paypal', (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+app.get("/api/keys/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials: true");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, authorization");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,DELETE,OPTIONS,POST,PUT"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, authorization"
+  );
   next();
 });
 
@@ -46,7 +52,7 @@ app.use(cors());
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Error interno del servidor: ' + err.message);
+  res.status(500).send("Error interno del servidor: " + err.message);
 });
 
 const port = process.env.PORT || 5000;
