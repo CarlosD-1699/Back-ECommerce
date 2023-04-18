@@ -37,7 +37,7 @@ app.use((req, res, next) => {
   );
   res.header(
     "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Request-Headers, authorization"
+    "Access-Control-Allow-Headers, Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Allow-Methods, Access-Control-Request-Headers, authorization"
   );
   next();
 });
